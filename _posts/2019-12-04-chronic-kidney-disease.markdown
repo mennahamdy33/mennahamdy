@@ -139,10 +139,8 @@ First of all to understand logistic regression you must pass by linear regressio
 As you have seen in linear regression , we used hypothesis relation to predict the output but this time we need that our predictions be the binary outcome of either 0 or 1.
 So, we use the same hypothesis but with a little modification by using  the sigmoid function.
 
-g(theta.x)=1/1+e^(-theta.x)
-g(z)=1/(1+e^(-z) 
-
 {% highlight Ruby %}
+
 cv_LR = lapply(folds, function(x){
     training_fold = dataset[-x,]
     test_fold = dataset [x,]
