@@ -134,6 +134,15 @@ folds = createFolds(dataset$class , k = 5)
 ## 1. Naive Bayes 
 
 ## 2. Deision Tree
+It is an algorithm used to classify data.This algorithm uses the principle of divide and conquer to divide the problem into parts and solve all of them separately,Then the solution is grouped .
+The decision tree is created based on the choice of the best attribute, The training set can be divide so that the depth of the tree decreases at the same time as the data is correctly categorized.
+For more understanding you can check this [link](https://www.unite.ai/what-is-a-decision-tree/?gclid=Cj0KCQiAz53vBRCpARIsAPPsz8UAFt2lcFCWSD8OQWltpZ4t7fVUI7BETnlPerk8qk-3HRq4C6ULmosaAitpEALw_wcB)
+
+_code_
+
+
+
+
 
 ## 3. Logistic regression 
 
@@ -175,82 +184,3 @@ cv_LR = lapply(folds, function(x){
 
 ## 4. KNN 
 
-
-## Lists
-
-### Ordered list
-
-1. Item 1
-2. A second item
-3. Number 3
-
-{% highlight raw %}
-1. Item 1
-2. A second item
-3. Number 3
-{% endhighlight %}
-
-### Unordered list
-
-* An item
-* Another item
-* Yet another item
-* And there's more...
-
-{% highlight raw %}
-* An item
-* Another item
-* Yet another item
-* And there's more...
-{% endhighlight %}
-
----
-
-## Paragraph modifiers
-
-### Quote
-
-> Here is a quote. What this is should be self explanatory. Quotes are automatically indented when they are used.
-
-{% highlight raw %}
-> Here is a quote. What this is should be self explanatory.
-{% endhighlight raw %}
-
-
-
-
-{% highlight raw %}
----
-{% endhighlight %}
-
----
-
-## Images
-
-Markdown can also contain images. I'll need to add something here sometime.
-
-{% highlight raw %}
-![Markdowm Image][/image/url]
-{% endhighlight %}
-
-![Markdowm Image][6]
-
-*Figure Caption*?
-
-{% highlight raw %}
-![Markdowm Image][/image/url]
-<figcaption class="caption">Photo by John Doe</figcaption>
-{% endhighlight %}
-
-![Markdowm Image][6]
-<figcaption class="caption">Photo by John Doe</figcaption>
-
-*Bigger Images*?
-
-{% highlight raw %}
-![Markdowm Image][/image/url]{: class="bigger-image" }
-{% endhighlight %}
-
-![Markdowm Image][6]{: class="bigger-image" }
----
- 
