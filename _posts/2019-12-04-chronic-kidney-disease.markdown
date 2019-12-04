@@ -180,7 +180,7 @@ So, we use the same hypothesis but with a little modification by using  the sigm
 As seen in the figure above , The sigmoid function changed the output into a range between zero and one. To predict whether the output is one or zero ,we need to set a boundary value which is set by default equals to 0.5 , when the output >=  0.5 then it is rounded up to 1 and if it is < 0.5 then it is rounded down to 0.
 For further details please check :  [Linear Regression]( https://machinelearningmastery.com/logistic-regression-for-machine-learning/)
 {% highlight raw %}
-![Linear Regression](C:\Users\go\Documents\mennahamdy\_posts\sig.png "Linear")
+![Linear Regression](mennahamdy\_posts\sig.png "Linear")
 
 {% highlight Ruby %}
 
