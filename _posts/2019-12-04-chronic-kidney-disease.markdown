@@ -13,29 +13,14 @@ author: johndoe
 description: Markdown summary with different options
 ---
 
-## Basic formatting
-
-This note **demonstrates** some of what [Markdown][1] is *capable of doing*.
-
-And that's how to do it.
-
-{% highlight html %}
-This note **demonstrates** some of what [Markdown][some/link] is *capable of doing*.
-{% endhighlight %}
-
----
-
 # introduction 
 In this project we used different models to predict the chronic kidney disease and compare between these models  .
 
 
 # preprocessing
 
-### import data 
-{% highlight Ruby %}
- dataset <- read.csv('chronic_kidney_disease_full1.csv')
-{% endhighlight %} 
 ### install neccesary packages ,Then import libraries.
+
  {% highlight Ruby %}
   install.packages(e1071)
   install.packages(dplyr)
@@ -61,26 +46,129 @@ In this project we used different models to predict the chronic kidney disease a
   library(caTools)
   library(class)
   {% endhighlight %}
+
+### import data
+[download](https://archive.ics.uci.edu/ml/machine-learning-databases/00336/) data
+Then import it
+{% highlight Ruby %}
+ dataset <- read.csv('chronic_kidney_disease_full1.csv')
+{% endhighlight %} 
+### Encoding Categorial Data
+
+{% highlight Ruby %}
+  dataset$sg = factor(dataset$sg, levels= c(1.005,1.01,1.015,1.02,1.025))
+  dataset$al = factor(dataset$al,levels = c(0,1,2,3,4,5))
+  dataset$su = factor(dataset$su,levels = c(0,1,2,3,4,5))
+  dataset$pc = factor(dataset$pc,levels = c('normal','abnormal'),
+                      labels= c(1,0))
+  dataset$pcc = factor(dataset$pcc,levels = c('present','notpresent'),
+                       labels= c(1,0))
+  dataset$ba = factor(dataset$ba,levels = c('present','notpresent'),
+                      labels= c(1,0))
+  dataset$class = factor(dataset$class, levels = c('ckd','notckd'),
+                         labels = c(1,0))
+  dataset$rbc = factor(dataset$rbc, levels = c('normal','abnormal'),
+                       labels = c(1,0))
+  dataset$htn = factor(dataset$htn, levels = c('yes', 'no'),
+                       labels = c(1,0))
+  dataset$dm = factor(dataset$dm, levels = c('yes', 'no'),
+                      labels = c(1,0))
+  dataset$cad = factor(dataset$cad, levels = c('yes', 'no'),
+                       labels = c(1,0))
+  dataset$pe = factor(dataset$pe, levels = c('yes', 'no'),
+                      labels = c(1,0))
+  dataset$ane = factor(dataset$ane, levels = c('yes', 'no'),
+                       labels = c(1,0))
+  dataset$appet = factor(dataset$appet, levels = c('good', 'poor'),
+                         labels = c(1,0))
+  
+{% endhighlight %} 
+
+
 ### freature selection
-in our data we found that colmn 21 have alot of missing data so we remove it from our data
+In our data we found that colmn 21 have alot of missing data so we remove it from our data
+ 
+ {% highlight Ruby %}
+ dataset <- dataset[,-21]
+ {% endhighlight %}
 
 ### Data imputation 
+In chronic_kidney_disease_full1.csv file the missing data is replaced with a '?' so to deal with these data we must convert it to 'NAN'
+ 
+ {% highlight Ruby %}
+  dataset <- na_if(dataset,'?')
+ {% endhighlight %}
+ 
+Data has two types of columns data : numeric and catergorical data
 
-data has two types of columns data : numeric and factors data
+We will replace any missing data with the mean of this column data if it has numeric data ,But when it has catergorical we will replace the missing data with the mode of this column
 
-we will replace any missing data with the mean of this column data if it has numeric data and if it has factors we will replace the missing data with the mode of this column
+{% highlight Ruby %}
+
+dataset <- lapply(dataset, function(x)
+  {
+    if(is.factor(x)) replace(x, is.na(x), Mode(na.omit(x)))
+    else if (is.numeric(x)) replace(x, is.na(x) , mean(x, na.rm = TRUE))
+    else x
+  })
+#### we must convert the dataset into datafram to be able to deal with it.
+  dataset = data.frame(dataset)
+ {% endhighlight %}
+ 
 
 ### feature normalization 
-Because of the increasing in error when the range of data in each column is different in the width we made feature scalling to decrease this error.
-
+Because of the increasing in error when the range of the numeric data in each column is different in the width we made feature scalling to decrease this error.
+ 
+ {% highlight Ruby %}
+ dataset [, 1:11] = scale(dataset[,1:11])
+ {% endhighlight %}
+ 
 # Methodology
-for increasing our accuarcy we used cross validation by using creatfolds function  
+for increasing our accuarcy we used [cross validation](https://magoosh.com/data-science/k-fold-cross-validation/).  
+{% highlight Ruby %}
+folds = createFolds(dataset$class , k = 5)
+{% endhighlight %} 
 
 ## 1. Naive Bayes 
 
 ## 2. Deision Tree
 
 ## 3. Logistic regression 
+
+First of all to understand logistic regression you must pass by linear regression , Take a look at [Linear regression](https://machinelearningmastery.com/linear-regression-for-machine-learning/)
+As you have seen in linear regression , we used hypothesis relation to predict the output but this time we need that our predictions be the binary outcome of either 0 or 1.
+So, we use the same hypothesis but with a little modification by using  the sigmoid function.
+
+g(theta.x)=1/1+e^(-theta.x)
+g(z)=1/(1+e^(-z) 
+
+{% highlight Ruby %}
+cv_LR = lapply(folds, function(x){
+    training_fold = dataset[-x,]
+    test_fold = dataset [x,]
+    classifier = glm (formula =class ~.,
+                      family = binomial,
+                      data = training_fold)
+
+    prob_pred = predict.glm(classifier , type = 'response', newdata = test_fold[-24])
+    
+    y_pred = ifelse(prob_pred > 0.5 , 1 ,0 )
+    
+    CM_V = table(dataset[x,24], y_pred)
+    
+    accuracy_V = (CM_V[1,1] + CM_V[2,2]) / (CM_V[1,1] + CM_V[2,2] + CM_V[1,2] + CM_V[2,1])
+    
+    sens_v = (CM_V[1,1])/(CM_V[1,1]+CM_V[2,1])
+    
+    spec_v = (CM_V[2,2])/(CM_V[2,2]+CM_V[1,2])
+    
+    statisitcs = c(accuracy_V,sens_v,spec_v)
+    return(statisitcs)
+  })
+  
+ {% endhighlight %}
+
+
 
 ## 4. KNN 
 
