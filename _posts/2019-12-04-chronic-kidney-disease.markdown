@@ -242,7 +242,7 @@ cv_LR = lapply(folds, function(x){
   
  {% endhighlight %}
 
-![Linear Regression](\mennahamdy\_posts\sig.png "Linear Regression")
+![Linear Regression](_posts\sig.png "Linear Regression")
 
 ## 4. Naive Bayes 
  
