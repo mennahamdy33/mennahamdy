@@ -136,7 +136,9 @@ folds = createFolds(dataset$class , k = 5)
 
 
 
-*code*
+
+
+
 This function will build the model and calculate accuracy , sensitivty and specifity for each fold,Then we put the output in a vector called statistics
 
 {% highlight Ruby %}  
@@ -156,6 +158,20 @@ cv_KNN = lapply(folds, function(x){
     return(statisitcs)
   })
 {% endhighlight %} 
+
+lapply function will return the output as list so to deal with it , convert cv_KNN into data frame
+
+{% highlight Ruby %}  
+cv_KNN <- data.frame(cv_KNN) 
+{% endhighlight %}
+
+then to show the results , Use paste function .
+
+{% highlight Ruby %} 
+ paste("[K-NN] accuracy:",mean(as.numeric(cv_KNN[1,]))
+        ,",sens:" ,mean(as.numeric(cv_KNN[2,]))
+        ,",spec:",mean(as.numeric(cv_KNN[3,])))
+{% endhighlight %}
 
 
 
