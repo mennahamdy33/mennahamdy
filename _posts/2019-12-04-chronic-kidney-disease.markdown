@@ -138,9 +138,27 @@ It is an algorithm used to classify data.This algorithm uses the principle of di
 The decision tree is created based on the choice of the best attribute, The training set can be divide so that the depth of the tree decreases at the same time as the data is correctly categorized.
 For more understanding you can check this [link](https://www.unite.ai/what-is-a-decision-tree/?gclid=Cj0KCQiAz53vBRCpARIsAPPsz8UAFt2lcFCWSD8OQWltpZ4t7fVUI7BETnlPerk8qk-3HRq4C6ULmosaAitpEALw_wcB)
 
-_code_
+_code_ 
 
-
+{% highlight Ruby %}
+cv_dtree = lapply(folds, function(x){
+    training_fold = dataset[-x,]
+    test_fold = dataset [x,]
+    tree <- rpart(class~.,
+                  data= training_fold,
+                  method = "class")
+    
+    pred <- predict(object=tree,test_fold,type="class")
+    CM_V = table(pred, test_fold$class)
+    accuracy_V = (CM_V[1,1] + CM_V[2,2]) / (CM_V[1,1] + CM_V[2,2] + CM_V[1,2] + CM_V[2,1])
+    
+    
+    sens_v = (CM_V[1,1])/(CM_V[1,1]+CM_V[2,1])
+    spec_v = (CM_V[2,2])/(CM_V[2,2]+CM_V[1,2])
+    statisitcs = c(accuracy_V,sens_v,spec_v)
+    return(statisitcs)
+  })
+{% endhighlight %} 
 
 
 
