@@ -1,7 +1,7 @@
 ---
-title: "Markdown Common Elements"
+title: "chronic kidney disease"
 layout: post
-date: 2016-02-24 22:44
+date: 2019-12-05 
 image: /assets/images/markdown.jpg
 headerImage: false
 tag:
@@ -25,26 +25,65 @@ This note **demonstrates** some of what [Markdown][some/link] is *capable of doi
 
 ---
 
-## Headings
+# introduction 
+In this project we used different models to predict the chronic kidney disease and compare between these models  .
 
-There are six levels of headings. They correspond with the six levels of HTML headings. You've probably noticed them already in the page. Each level down uses one more hash character. But we are using just 4 of them.
 
-# Headings can be small
+# preprocessing
 
-## Headings can be small
+### import data 
+{% highlight Ruby %}
+ dataset <- read.csv('chronic_kidney_disease_full1.csv')
+{% endhighlight %} 
+### install neccesary packages ,Then import libraries.
+ {% highlight Ruby %}
+  install.packages(e1071)
+  install.packages(dplyr)
+  install.packages(lattice)
+  install.packages(readxl)
+  install.packages(rattle)
+  install.packages(rpart)
+  install.packages(caret)
+  install.packages(rpart.plot)
+  install.packages(caTools)
 
-### Headings can be small
+  library(rpart,quietly = TRUE)
+  library(caret,quietly = TRUE)
+  library(rpart.plot,quietly = TRUE)
+  library(rattle)
+  library(readxl)
+  library(ggplot2)
+  library(lattice)
+  library(caret)
+  library(dplyr)
+  library(tidyr)
+  library(e1071)
+  library(caTools)
+  library(class)
+  {% endhighlight %}
+### freature selection
+in our data we found that colmn 21 have alot of missing data so we remove it from our data
 
-#### Headings can be small
+### Data imputation 
 
-{% highlight raw %}
-# Heading
-## Heading
-### Heading
-#### Heading
-{% endhighlight %}
+data has two types of columns data : numeric and factors data
 
----
+we will replace any missing data with the mean of this column data if it has numeric data and if it has factors we will replace the missing data with the mode of this column
+
+### feature normalization 
+Because of the increasing in error when the range of data in each column is different in the width we made feature scalling to decrease this error.
+
+# Methodology
+for increasing our accuarcy we used cross validation by using creatfolds function  
+
+## 1. Naive Bayes 
+
+## 2. Deision Tree
+
+## 3. Logistic regression 
+
+## 4. KNN 
+
 
 ## Lists
 
@@ -86,28 +125,8 @@ There are six levels of headings. They correspond with the six levels of HTML he
 > Here is a quote. What this is should be self explanatory.
 {% endhighlight raw %}
 
----
 
-## URLs
 
-URLs can be made in a handful of ways:
-
-* A named link to [Mark It Down][3].
-* Another named link to [Mark It Down](http://markitdown.net/)
-* Sometimes you just want a URL like <http://markitdown.net/>.
-
-{% highlight raw %}
-* A named link to [MarkItDown][3].
-* Another named link to [MarkItDown](http://markitdown.net/)
-* Sometimes you just want a URL like <http://markitdown.net/>.
-{% endhighlight %}
-
----
-
-## Horizontal rule
-
-A horizontal rule is a line that goes across the middle of the page.
-It's sometimes handy for breaking things up.
 
 {% highlight raw %}
 ---
@@ -142,63 +161,5 @@ Markdown can also contain images. I'll need to add something here sometime.
 {% endhighlight %}
 
 ![Markdowm Image][6]{: class="bigger-image" }
-
 ---
-
-## Code
-
-A HTML Example:
-
-{% highlight html %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Just a test</h1>
-</body>
-</html>
-{% endhighlight %}
-
-A CSS Example:
-
-{% highlight css %}
-pre {
-    padding: 10px;
-    font-size: .8em;
-    white-space: pre;
-}
-
-pre, table {
-    width: 100%;
-}
-
-code, pre, tt {
-    font-family: Monaco, Consolas, Inconsolata, monospace, sans-serif;
-    background: rgba(0,0,0,.05);
-}
-{% endhighlight %}
-
-A JS Example:
-
-{% highlight js %}
-// Sticky Header
-$(window).scroll(function() {
-
-    if ($(window).scrollTop() > 900 && !$("body").hasClass('show-menu')) {
-        $('#hamburguer__open').fadeOut('fast');
-    } else if (!$("body").hasClass('show-menu')) {
-        $('#hamburguer__open').fadeIn('fast');
-    }
-
-});
-{% endhighlight %}
-
-[1]: http://daringfireball.net/projects/markdown/
-[2]: http://www.fileformat.info/info/unicode/char/2163/index.htm
-[3]: http://www.markitdown.net/
-[4]: http://daringfireball.net/projects/markdown/basics
-[5]: http://daringfireball.net/projects/markdown/syntax
-[6]: http://kune.fr/wp-content/uploads/2013/10/ghost-blog.jpg
+ 
