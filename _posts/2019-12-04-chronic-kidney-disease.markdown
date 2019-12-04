@@ -159,7 +159,7 @@ cv_KNN = lapply(folds, function(x){
   })
 {% endhighlight %} 
 
-lapply function will return the output as list so to deal with it , convert cv_KNN into data frame
+lapply function will return the output as a list so to deal with it , convert cv_KNN into data frame
 
 {% highlight Ruby %}  
 cv_KNN <- data.frame(cv_KNN) 
@@ -242,7 +242,7 @@ cv_LR = lapply(folds, function(x){
   
  {% endhighlight %}
 
-
+![Linear Regression](\mennahamdy\_posts\sig.png "Linear Regression")
 
 ## 4. Naive Bayes 
  
