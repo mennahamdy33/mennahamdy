@@ -134,11 +134,9 @@ folds = createFolds(dataset$class , k = 5)
 ## 1. Naive Bayes 
 
 ## 2. Deision Tree
-It is an algorithm used to classify data.This algorithm uses the principle of divide and conquer to divide the problem into parts and solve all of them separately,Then the solution is grouped .
+It is an algorithm used to classify data.This algorithm uses the principle of **divide and conquer** to divide the problem into parts and solve all of them separately,Then the solution is grouped .
 The decision tree is created based on the choice of the best attribute, The training set can be divide so that the depth of the tree decreases at the same time as the data is correctly categorized.
 For more understanding you can check this [link](https://www.unite.ai/what-is-a-decision-tree/?gclid=Cj0KCQiAz53vBRCpARIsAPPsz8UAFt2lcFCWSD8OQWltpZ4t7fVUI7BETnlPerk8qk-3HRq4C6ULmosaAitpEALw_wcB)
-
-_code_ 
 
 {% highlight Ruby %}
 cv_dtree = lapply(folds, function(x){
