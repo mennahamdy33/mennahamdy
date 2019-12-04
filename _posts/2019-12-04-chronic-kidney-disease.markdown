@@ -133,11 +133,21 @@ folds = createFolds(dataset$class , k = 5)
 
 ## 1. Naive Bayes 
 
+
+
+
+
+
+
+
+
+
 ## 2. Deision Tree
 It is an algorithm used to classify data.This algorithm uses the principle of **divide and conquer** to divide the problem into parts and solve all of them separately,Then the solution is grouped .
 The decision tree is created based on the choice of the best attribute, The training set can be divide so that the depth of the tree decreases at the same time as the data is correctly categorized.
 For more understanding you can check this [link](https://www.unite.ai/what-is-a-decision-tree/?gclid=Cj0KCQiAz53vBRCpARIsAPPsz8UAFt2lcFCWSD8OQWltpZ4t7fVUI7BETnlPerk8qk-3HRq4C6ULmosaAitpEALw_wcB)
 
+*code*
 {% highlight Ruby %}
 cv_dtree = lapply(folds, function(x){
     training_fold = dataset[-x,]
@@ -169,6 +179,12 @@ So, we use the same hypothesis but with a little modification by using  the sigm
 
 As seen in the figure above , The sigmoid function changed the output into a range between zero and one. To predict whether the output is one or zero ,we need to set a boundary value which is set by default equals to 0.5 , when the output >=  0.5 then it is rounded up to 1 and if it is < 0.5 then it is rounded down to 0.
 For further details please check :  [Linear Regression]( https://machinelearningmastery.com/logistic-regression-for-machine-learning/)
+{% highlight raw %}
+![Markdowm Image][/sig/C:\Users\go\Documents\mennahamdy\_posts\sig.png]
+{% endhighlight %}
+
+![Markdowm Image][6]
+
 {% highlight Ruby %}
 
 cv_LR = lapply(folds, function(x){
