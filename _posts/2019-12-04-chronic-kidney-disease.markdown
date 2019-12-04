@@ -131,11 +131,31 @@ for increasing our accuarcy we use [cross validation](https://magoosh.com/data-s
 folds = createFolds(dataset$class , k = 5)
 {% endhighlight %} 
 
-## 1. Naive Bayes 
+## 1. KNN 
 
 
 
 
+*code*
+This function will build the model and calculate accuracy , sensitivty and specifity for each fold,Then we put the output in a vector called statistics
+
+{% highlight Ruby %}  
+cv_KNN = lapply(folds, function(x){
+	
+	*split_data* data according to cross validation 
+    training_fold = dataset[-x,]
+    test_fold = dataset [x,]
+    k_nn <- knn(train = training_fold,test = test_fold, cl = dataset[-x,24], k=9)
+
+    CM_V = table(dataset[x,24], k_nn)
+	
+    accuracy_V = (CM_V[1,1] + CM_V[2,2]) / (CM_V[1,1] + CM_V[2,2] + CM_V[1,2] + CM_V[2,1])  
+    sens_v = (CM_V[1,1])/(CM_V[1,1]+CM_V[2,1])
+    spec_v = (CM_V[2,2])/(CM_V[2,2]+CM_V[1,2])
+    statisitcs = c(accuracy_V,sens_v,spec_v)
+    return(statisitcs)
+  })
+{% endhighlight %} 
 
 
 
@@ -148,6 +168,7 @@ The decision tree is created based on the choice of the best attribute, The trai
 For more understanding you can check this [link](https://www.unite.ai/what-is-a-decision-tree/?gclid=Cj0KCQiAz53vBRCpARIsAPPsz8UAFt2lcFCWSD8OQWltpZ4t7fVUI7BETnlPerk8qk-3HRq4C6ULmosaAitpEALw_wcB)
 
 *code*
+
 {% highlight Ruby %}
 cv_dtree = lapply(folds, function(x){
     training_fold = dataset[-x,]
@@ -211,5 +232,33 @@ cv_LR = lapply(folds, function(x){
 
 
 
-## 4. KNN 
+## 4. Naive Bayes 
+ 
+This method is based on [Bayes Theorem]( https://www.mathsisfun.com/data/bayes-theorem.html) in statistics .
+It considers two main assumptions ,The first one is that every feature is independent of the other features , The second one is that every feature has the same contribution (Weight) as the others .
+It calculates the probability of each feature individually given the output and the probability of the output and hence be able to predict the output given the features values .
+As mentioned in the Logistic regression method we are going to use the same boundary value .
+For Further details for the algorithm Check [Naïve Bayes]( https://www.saedsayad.com/naive_bayesian.htm)
+
+*Code*
+ 
+{% highlight Ruby %}
+  cv_naive = lapply(folds, function(x){
+    training_fold = dataset[-x,]
+    test_fold = dataset [x,]
+    Naive_Bayes_Model=naiveBayes(class ~., data= training_fold)
+    NB_Predictions=predict(Naive_Bayes_Model,test_fold)
+    CM_V = table(NB_Predictions,test_fold$class)
+    accuracy_V = (CM_V[1,1] + CM_V[2,2]) / (CM_V[1,1] + CM_V[2,2] + CM_V[1,2] + CM_V[2,1])
+    
+    sens_v = (CM_V[1,1])/(CM_V[1,1]+CM_V[2,1])
+    
+    spec_v = (CM_V[2,2])/(CM_V[2,2]+CM_V[1,2])
+    
+    statisitcs = c(accuracy_V,sens_v,spec_v)
+    
+    return(statisitcs)
+  })
+  {% endhighlight %}
+  
 
