@@ -13,13 +13,13 @@ author: johndoe
 description: Markdown summary with different options
 ---
 
-# introduction 
+# Introduction 
 In this project we used different models to predict the chronic kidney disease and compare between these models  .
 
 
-# preprocessing
+# Preprocessing
 
-### install neccesary packages ,Then import libraries.
+ install necessary packages ,Then import libraries.
 
  {% highlight Ruby %}
   install.packages(e1071)
@@ -47,12 +47,13 @@ In this project we used different models to predict the chronic kidney disease a
   library(class)
   {% endhighlight %}
 
-### import data
+### Import data
 [download](https://archive.ics.uci.edu/ml/machine-learning-databases/00336/) data
 Then import it
 {% highlight Ruby %}
  dataset <- read.csv('chronic_kidney_disease_full1.csv')
 {% endhighlight %} 
+
 ### Encoding Categorial Data
 
 {% highlight Ruby %}
@@ -85,7 +86,7 @@ Then import it
 {% endhighlight %} 
 
 
-### freature selection
+### Freature selection
 In our data we found that colmn 21 have alot of missing data so we remove it from our data
  
  {% highlight Ruby %}
@@ -111,7 +112,8 @@ dataset <- lapply(dataset, function(x)
     else if (is.numeric(x)) replace(x, is.na(x) , mean(x, na.rm = TRUE))
     else x
   })
-#### we must convert the dataset into datafram to be able to deal with it.
+  
+We must convert the dataset into datafram to be able to deal with it.
   dataset = data.frame(dataset)
  {% endhighlight %}
  
@@ -124,7 +126,7 @@ Because of the increasing in error when the range of the numeric data in each co
  {% endhighlight %}
  
 # Methodology
-for increasing our accuarcy we used [cross validation](https://magoosh.com/data-science/k-fold-cross-validation/).  
+for increasing our accuarcy we use [cross validation](https://magoosh.com/data-science/k-fold-cross-validation/).  
 {% highlight Ruby %}
 folds = createFolds(dataset$class , k = 5)
 {% endhighlight %} 
@@ -139,6 +141,12 @@ First of all to understand logistic regression you must pass by linear regressio
 As you have seen in linear regression , we used hypothesis relation to predict the output but this time we need that our predictions be the binary outcome of either 0 or 1.
 So, we use the same hypothesis but with a little modification by using  the sigmoid function.
 
+{% highlight raw %}
+![Markdowm Image][sig.png]
+{% endhighlight %}
+
+As seen in the figure above , The sigmoid function changed the output into a range between zero and one. To predict whether the output is one or zero ,we need to set a boundary value which is set by default equals to 0.5 , when the output >=  0.5 then it is rounded up to 1 and if it is < 0.5 then it is rounded down to 0.
+For further details please check :  [Linear Regression]( https://machinelearningmastery.com/logistic-regression-for-machine-learning/)
 {% highlight Ruby %}
 
 cv_LR = lapply(folds, function(x){
