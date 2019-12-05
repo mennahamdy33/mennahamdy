@@ -14,8 +14,10 @@ description: Markdown summary with different options
 ---
 
 # Introduction 
-[Chronic kidney disease (CKD)](https://www.mayoclinic.org/diseases-conditions/chronic-kidney-disease/symptoms-causes/syc-20354521) is a type of kidney disease in which there is huge loss of kidney function over a long period might be months to years.
-In this project we used different models and compared between these models to predict the chronic kidney disease .
+
+In this project we used different models to classify the chronic kidney disease and compare between these models  .
+
+
 
 # Preprocessing
 
@@ -47,9 +49,14 @@ In this project we used different models and compared between these models to pr
   library(class)
   {% endhighlight %}
 
+<<<<<<< HEAD
 ## Import data <span style="color:blue">
 
 [Download](https://archive.ics.uci.edu/ml/machine-learning-databases/00336/) data
+=======
+### Import data
+[download](https://archive.ics.uci.edu/ml/machine-learning-databases/00336/) data
+>>>>>>> a1a356adbb9315b0348ee47ab00a636b6d2fc0d9
 Then import it
 {% highlight Ruby %}
  dataset <- read.csv('chronic_kidney_disease_full1.csv')
@@ -88,7 +95,7 @@ Then import it
 
 
 ### Freature selection
-In our data we found that column 21 have alot of missing data so we remove it from our data
+In our data we found that colmn 21 have alot of missing data so we remove it from our data
  
  {% highlight Ruby %}
  dataset <- dataset[,-21]
@@ -101,9 +108,9 @@ In chronic_kidney_disease_full1.csv file the missing data is replaced with a '?'
   dataset <- na_if(dataset,'?')
  {% endhighlight %}
  
-Data has two types : numeric and catergorical data
+Data has two types of columns data : numeric and catergorical data
 
-We will replace any missing data with the mean of this feature data if it has numeric data ,But when it has catergorical we will replace the missing data with the mode of this feature.
+We will replace any missing data with the mean of this column data if it has numeric data ,But when it has catergorical we will replace the missing data with the mode of this column
 
 {% highlight Ruby %}
 
@@ -114,7 +121,7 @@ dataset <- lapply(dataset, function(x)
     else x
   })
   
-We must convert the dataset into dataframe to be able to deal with it.
+We must convert the dataset into datafram to be able to deal with it.
   dataset = data.frame(dataset)
  {% endhighlight %}
  
@@ -132,21 +139,16 @@ For increasing our accuarcy we use [cross validation](https://magoosh.com/data-s
 {% highlight Ruby %}
 folds = createFolds(dataset$class , k = 5)
 {% endhighlight %} 
-## Used Algorithms
 
-*KNN
-*Tree Decision 
-*Logistic Regression
-*Naive Bayes
+## 1. KNN 
 
-### 1. KNN 
-
-[KNN](https://people.revoledu.com/kardi/tutorial/KNN/HowTo_KNN.html) is the simplest algorithm with a very high accuracy for binary classification, It classifies a new data point based on the similarly. 
-To apply KNN model we must select K of neighbors after calculate distance between all points and the new data point , It will take the closest k points to this point then it classify this point based on the majority for example if the closest 5 points 3 of them from A category and 2 from B category ,So this point will classified as A
+[KNN](https://people.revoledu.com/kardi/tutorial/KNN/HowTo_KNN.html) is the simplest algorithm with a very high accuracy for binary classification, It classifies a new data point based on the similarity. 
+To apply KNN model we must select K of neighbors after calculating distance between all points and the new data point , It will take the closest k points compared to the new point then it classifies the new point based on the majority.
+for example: if the closest 5 points 3 of them from A category and 2 from B category ,So this point will be classified as A category.
 
 *code*
 
-This function will build the model and calculate accuracy , sensitivty and specifity for each fold,Then we put the output in a vector called statistics
+This function will build the model and calculate accuracy, sensitivty and specifity for each fold, Then we put the output in a vector called statistics
 {% highlight Ruby %}  
 
 cv_KNN = lapply(folds, function(x){
@@ -179,10 +181,15 @@ Then to show the results , Use paste function .
         ,",spec:",mean(as.numeric(cv_KNN[3,])))
 {% endhighlight %}
 
-### 2. Deision Tree
-It is an algorithm used to classify data.This algorithm uses the principle of **divide and conquer** to divide the problem into parts and solve all of them separately,Then the solution is grouped .
+
+
+
+
+
+## 2. Deision Tree
+It is an algorithm used to classify data. This algorithm uses the principle of **divide and conquer** to divide the problem into parts and solve all of them separately, Then the solution is grouped .
 The decision tree is created based on the choice of the best attribute, The training set can be divide so that the depth of the tree decreases at the same time as the data is correctly categorized.
-For more understanding you can check this [link](https://www.unite.ai/what-is-a-decision-tree/?gclid=Cj0KCQiAz53vBRCpARIsAPPsz8UAFt2lcFCWSD8OQWltpZ4t7fVUI7BETnlPerk8qk-3HRq4C6ULmosaAitpEALw_wcB)
+For more illustration you can check this [link](https://www.unite.ai/what-is-a-decision-tree/?gclid=Cj0KCQiAz53vBRCpARIsAPPsz8UAFt2lcFCWSD8OQWltpZ4t7fVUI7BETnlPerk8qk-3HRq4C6ULmosaAitpEALw_wcB)
 
 *code*
 
@@ -216,16 +223,19 @@ cv_dtree = lapply(folds, function(x){
 
 ## 3. Logistic regression 
 
-First of all to understand logistic regression you must pass by linear regression , Take a look at [Linear regression](https://machinelearningmastery.com/linear-regression-for-machine-learning/)
-As you have seen in linear regression , we used hypothesis relation to predict the output but this time we need that our predictions be the binary outcome of either 0 or 1.
+First of all to understand logistic regression you must pass by [Linear regression](https://machinelearningmastery.com/linear-regression-for-machine-learning/)
+As you have seen in linear regression , we used a hypothesis relation to predict the output but this time we need that our predictions be the binary outcome of either 0 or 1.
 So, we use the same hypothesis but with a little modification by using  the sigmoid function.
 
 
+<<<<<<< HEAD
+=======
 ![](https://mennahamdy33.github.io/mennahamdy/assets/logreg.png)
 
 
+>>>>>>> 581bb1d91a27dfd4b1b2a327e39ac9316e988bca
 As seen in the figure above , The sigmoid function changed the output into a range between zero and one. To predict whether the output is one or zero ,we need to set a boundary value which is set by default equals to 0.5 , when the output >=  0.5 then it is rounded up to 1 and if it is < 0.5 then it is rounded down to 0.
-For further details please check :[Logistics Regression](https://machinelearningmastery.com/logistic-regression-for-machine-learning/)
+For further details please check :  [Linear Regression]( https://machinelearningmastery.com/logistic-regression-for-machine-learning/)
 
 *Code*
 
@@ -260,6 +270,8 @@ cv_LR = lapply(folds, function(x){
   
  {% endhighlight %}
 
+![sig.jpeg](file://sig.jpeg "Linear Regression")
+<img src="file://sig.jpeg" alt="alt text" width="200"/>
 ## 4. Naive Bayes 
  
 This method is based on [Bayes Theorem]( https://www.mathsisfun.com/data/bayes-theorem.html) in statistics .
@@ -295,3 +307,6 @@ For Further details for the algorithm Check [Naïve Bayes]( https://www.saedsaya
         ,"spec:",mean(as.numeric(cv_naive[3,])))
 		
 {% endhighlight %}
+
+# Conclusion:
+From the shown results , Although each method has a good accuracy , you still need to study for the suitable method that goes along best with your data . In the end we now can highly predict chronic kidney diseadse .
