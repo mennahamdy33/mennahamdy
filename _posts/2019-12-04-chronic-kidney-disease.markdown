@@ -182,7 +182,8 @@ Then to show the results , Use paste function .
         ,",sens:" ,mean(as.numeric(cv_KNN[2,]))
         ,",spec:",mean(as.numeric(cv_KNN[3,])))
 {% endhighlight %}
-
+## The results:
+![](https://mennahamdy33.github.io/mennahamdy/assets/KNN.PNG)
 
 
 
@@ -218,6 +219,8 @@ cv_dtree = lapply(folds, function(x){
         ,",spec:",mean(as.numeric(cv_dtree[3,])))
 		
 {% endhighlight %} 
+## The results:
+![](https://mennahamdy33.github.io/mennahamdy/assets/DC.PNG)
 
 
 
@@ -264,6 +267,8 @@ cv_LR = lapply(folds, function(x){
         ,",spec:",mean(as.numeric(cv_LR[3,])))
   
  {% endhighlight %}
+## The results:
+![](https://mennahamdy33.github.io/mennahamdy/assets/LR.PNG)
 
 
 ## **4. Naive Bayes** 
@@ -301,6 +306,8 @@ For Further details for the algorithm Check [Naïve Bayes]( https://www.saedsaya
         ,"spec:",mean(as.numeric(cv_naive[3,])))
 		
 {% endhighlight %}
+## The results:
+![](https://mennahamdy33.github.io/mennahamdy/assets/NB.PNG)
 
 # **Conclusion:**
 From the shown results , Although each method has a good accuracy , you still need to study for the suitable method that goes along best with your data . In the end we now can highly predict chronic kidney diseadse .
