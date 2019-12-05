@@ -222,6 +222,12 @@ As you have seen in linear regression , we used a hypothesis relation to predict
 So, we use the same hypothesis but with a little modification by using  the sigmoid function.
 
 
+<<<<<<< HEAD
+=======
+![](https://mennahamdy33.github.io/mennahamdy/assets/logreg.png)
+
+
+>>>>>>> 581bb1d91a27dfd4b1b2a327e39ac9316e988bca
 As seen in the figure above , The sigmoid function changed the output into a range between zero and one. To predict whether the output is one or zero ,we need to set a boundary value which is set by default equals to 0.5 , when the output >=  0.5 then it is rounded up to 1 and if it is < 0.5 then it is rounded down to 0.
 For further details please check :  [Linear Regression]( https://machinelearningmastery.com/logistic-regression-for-machine-learning/)
 
