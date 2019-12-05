@@ -256,7 +256,7 @@ cv_LR = lapply(folds, function(x){
   
  {% endhighlight %}
 
-![sig.jpeg](/sig.jpeg "Linear Regression")
+![sig.jpeg](file://sig.jpeg "Linear Regression")
 
 ## 4. Naive Bayes 
  
