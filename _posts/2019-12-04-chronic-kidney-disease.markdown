@@ -1,5 +1,5 @@
 ---
-title: "chronic kidney disease"
+title: "Chronic Kidney Disease classification in R"
 layout: post
 date: 2019-12-05 
 image: /assets/images/markdown.jpg
@@ -14,7 +14,8 @@ description: Markdown summary with different options
 ---
 
 # Introduction 
-In this project we used different models to predict the chronic kidney disease and compare between these models  .
+
+In this project we used different models to classify the chronic kidney disease and compare between these models  .
 
 
 # Preprocessing
@@ -126,21 +127,20 @@ Because of the increasing in error when the range of the numeric data in each co
  {% endhighlight %}
  
 # Methodology
-for increasing our accuarcy we use [cross validation](https://magoosh.com/data-science/k-fold-cross-validation/).  
+
+For increasing our accuarcy we use [cross validation](https://magoosh.com/data-science/k-fold-cross-validation/).  
 {% highlight Ruby %}
 folds = createFolds(dataset$class , k = 5)
 {% endhighlight %} 
 
 ## 1. KNN 
 
+[KNN](https://people.revoledu.com/kardi/tutorial/KNN/HowTo_KNN.html) is the simplest algorithm with a very high accuracy for binary classification, It classifies a new data point based on the similarly. 
+To apply KNN model we must select K of neighbors after calculate distance between all points and the new data point , It will take the closest k points to this point then it classify this point based on the majority for example if the closest 5 points 3 of them from A category and 2 from B category ,So this point will classified as A
 
-
-
-
-
+*code*
 
 This function will build the model and calculate accuracy , sensitivty and specifity for each fold,Then we put the output in a vector called statistics
-
 {% highlight Ruby %}  
 
 cv_KNN = lapply(folds, function(x){
@@ -165,7 +165,7 @@ lapply function will return the output as a list so to deal with it , convert cv
 cv_KNN <- data.frame(cv_KNN) 
 {% endhighlight %}
 
-then to show the results , Use paste function .
+Then to show the results , Use paste function .
 
 {% highlight Ruby %} 
  paste("[K-NN] accuracy:",mean(as.numeric(cv_KNN[1,]))
@@ -203,6 +203,11 @@ cv_dtree = lapply(folds, function(x){
     statisitcs = c(accuracy_V,sens_v,spec_v)
     return(statisitcs)
   })
+  
+   paste("[Desicion tree]accuracy:",mean(as.numeric(cv_dtree[1,]))
+        ,",sens:" ,mean(as.numeric(cv_dtree[2,]))
+        ,",spec:",mean(as.numeric(cv_dtree[3,])))
+		
 {% endhighlight %} 
 
 
@@ -216,6 +221,9 @@ So, we use the same hypothesis but with a little modification by using  the sigm
 
 As seen in the figure above , The sigmoid function changed the output into a range between zero and one. To predict whether the output is one or zero ,we need to set a boundary value which is set by default equals to 0.5 , when the output >=  0.5 then it is rounded up to 1 and if it is < 0.5 then it is rounded down to 0.
 For further details please check :  [Linear Regression]( https://machinelearningmastery.com/logistic-regression-for-machine-learning/)
+
+*Code*
+
 {% highlight Ruby %}
 cv_LR = lapply(folds, function(x){
     training_fold = dataset[-x,]
@@ -239,10 +247,13 @@ cv_LR = lapply(folds, function(x){
     statisitcs = c(accuracy_V,sens_v,spec_v)
     return(statisitcs)
   })
+  paste("[LR] accuracy:",mean(as.numeric(cv_LR[1,]))
+        ,",sens:" ,mean(as.numeric(cv_LR[2,]))
+        ,",spec:",mean(as.numeric(cv_LR[3,])))
   
  {% endhighlight %}
 
-![Linear Regression](https://mennahamdy33.github.io/mennahamdy/sig.png "Linear Regression")
+<>(![Linear Regression](https://mennahamdy33.github.io/mennahamdy/sig.png "Linear Regression"))
 
 ## 4. Naive Bayes 
  
@@ -271,6 +282,11 @@ For Further details for the algorithm Check [Naïve Bayes]( https://www.saedsaya
     
     return(statisitcs)
   })
-  {% endhighlight %}
   
-
+ cv_naive = data.frame(cv_naive)
+ 
+ paste("[Naive Bayes] accuracy:",mean(as.numeric(cv_naive[1,]))
+        ,"sens:" ,mean(as.numeric(cv_naive[2,]))
+        ,"spec:",mean(as.numeric(cv_naive[3,])))
+		
+{% endhighlight %}
