@@ -204,7 +204,8 @@ cv_dtree = lapply(folds, function(x){
     return(statisitcs)
   })
   
-   paste("[Desicion tree]accuracy:",mean(as.numeric(cv_dtree[1,]))
+  cv_dtree <- data.frame(cv_dtree)
+  paste("[Desicion tree]accuracy:",mean(as.numeric(cv_dtree[1,]))
         ,",sens:" ,mean(as.numeric(cv_dtree[2,]))
         ,",spec:",mean(as.numeric(cv_dtree[3,])))
 		
@@ -247,6 +248,8 @@ cv_LR = lapply(folds, function(x){
     statisitcs = c(accuracy_V,sens_v,spec_v)
     return(statisitcs)
   })
+  
+  cv_LR = data.frame(cv_LR)
   paste("[LR] accuracy:",mean(as.numeric(cv_LR[1,]))
         ,",sens:" ,mean(as.numeric(cv_LR[2,]))
         ,",spec:",mean(as.numeric(cv_LR[3,])))
