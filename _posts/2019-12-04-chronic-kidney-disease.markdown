@@ -257,7 +257,7 @@ cv_LR = lapply(folds, function(x){
  {% endhighlight %}
 
 ![sig.jpeg](file://sig.jpeg "Linear Regression")
-
+<img src="file://sig.jpeg" alt="alt text" width="200"/>
 ## 4. Naive Bayes 
  
 This method is based on [Bayes Theorem]( https://www.mathsisfun.com/data/bayes-theorem.html) in statistics .
