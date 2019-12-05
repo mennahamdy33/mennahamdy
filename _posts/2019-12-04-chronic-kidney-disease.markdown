@@ -220,10 +220,8 @@ As you have seen in linear regression , we used hypothesis relation to predict t
 So, we use the same hypothesis but with a little modification by using  the sigmoid function.
 
 
-![logistic plot](file://logreg.png)
+![](https://mennahamdy33.github.io/mennahamdy/assets/logreg.png)
 
-
-<img src="logreg.PNG">
 
 As seen in the figure above , The sigmoid function changed the output into a range between zero and one. To predict whether the output is one or zero ,we need to set a boundary value which is set by default equals to 0.5 , when the output >=  0.5 then it is rounded up to 1 and if it is < 0.5 then it is rounded down to 0.
 For further details please check :[Logistics Regression](https://machinelearningmastery.com/logistic-regression-for-machine-learning/)
