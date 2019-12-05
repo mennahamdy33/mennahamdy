@@ -58,7 +58,7 @@ Then import it
 
 {% highlight Ruby %}
   dataset$sg = factor(dataset$sg, levels= c(1.005,1.01,1.015,1.02,1.025))
-  dataset$al = factor(dataset$al,levels = c(0,1,2,3,4,5))
+  dataset$al = factor(dataset$al,levels = c(0,1,2,3,4))
   dataset$su = factor(dataset$su,levels = c(0,1,2,3,4,5))
   dataset$pc = factor(dataset$pc,levels = c('normal','abnormal'),
                       labels= c(1,0))
@@ -118,7 +118,7 @@ We must convert the dataset into dataframe to be able to deal with it.
  {% endhighlight %}
  
 
-## **feature normalization** 
+## **Feature normalization** 
 Because of the increasing in error when the range of the numeric data in each column is different in the width we made feature scalling to decrease this error.
  
  {% highlight Ruby %}
