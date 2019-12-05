@@ -47,7 +47,8 @@ In this project we used different models and compared between these models to pr
   library(class)
   {% endhighlight %}
 
-### Import data
+## Import data <span style="color:blue">
+
 [Download](https://archive.ics.uci.edu/ml/machine-learning-databases/00336/) data
 Then import it
 {% highlight Ruby %}
